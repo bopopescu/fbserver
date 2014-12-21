@@ -2,13 +2,13 @@ from npl import CRFWordSegment
 
 class FBPost(object):
 #     old feature
-    likes = 0
-    shares = 0
-    comments = 0
-    url = 0
-    hashtags = 0
-    images = 0
-    vdo = 0
+    likes = 0 #ok
+    shares = 0 #ok
+    comments = 0 #ok
+    url = 0 #ok
+    hashtags = 0 #ok
+    images = 0 #ok
+    vdo = 0 #ok
     
 #     common feature
     wot_score = 0
@@ -16,26 +16,27 @@ class FBPost(object):
     word_outside_dict = 0
     
 #     only facebook feature
-    app_sender = 0
-    place = 0
-    gps = 0
+    app_sender = 0 #socialcam, twitter, instagam
+    location = 0
     tag_with = 0
-    is_public = 0
+    feeling_status = 0
+    share_public = 0 #ok
+    share_only_friend = 0 #ok
     
     
 #   twiiter feature  
-    word_count = 0
-    character_length = 0
-    question_mark = 0
-    exclamation_mark = 0
+    word_count = 0 #ok
+    character_length = 0 #ok
+    question_mark = 0 #ok
+    exclamation_mark = 0 #ok
     day_pass = 0
     
     def __init__(self, likes=None, shares=None, comments=None, url=None, 
                  hashtags=None, images=None, vdo=None, wot_score=None, not_wot_score=None,
-                 word_outside_dict=None, app_sender=None, place=None,
-                 gps=None, tag_with=None, is_public=None,
-                 word_count=None, character_length=None, question_mark=None,
-                 exclamation_mark=None, day_pass=None):
+                 word_outside_dict=None, app_sender=None, location=None,
+                 tag_with=None, feeling_status=None, share_public=None,
+                 share_only_friend=None,word_count=None, character_length=None, 
+                 question_mark=None, exclamation_mark=None, day_pass=None):
         self.likes = likes
         self.shares = shares
         self.comments = comments
@@ -47,10 +48,11 @@ class FBPost(object):
         self.not_wot_score = not_wot_score
         self.word_outside_dict = word_outside_dict
         self.app_sender = app_sender
-        self.place = place
-        self.gps = gps
+        self.location = location
         self.tag_with = tag_with
-        self.is_public = is_public
+        self.feeling_status = feeling_status
+        self.share_public = share_public
+        self.share_only_friend = share_only_friend
         self.word_count = word_count
         self.character_length = character_length
         self.question_mark = question_mark
@@ -66,8 +68,8 @@ class FBPost(object):
     
     def __str__(self, *args, **kwargs):
         str = '''[likes={}, shares={}, comments={}, url={}, hashtag={}, images={}, vdo={}
-        , wot_score={}, not_wot_score={}, word_outside_dict={}, app_sender={}, place={},
-        gps={}, tag_with={}, is_public={}, word_count={}, character_length={},
+        , wot_score={}, not_wot_score={}, word_outside_dict={}, app_sender={}, location={},
+        tag_with={}, feeling_status={}, share_public={}, share_with_friend={}, word_count={}, character_length={},
         question_mark={}, exclamation_mark={}, day_pass={}]'''
         return str.format(self.likes, 
                           self.shares,
@@ -77,8 +79,10 @@ class FBPost(object):
                           self.images,
                           self.vdo,
                           self.wot_score, self.not_wot_score, self.word_outside_dict,
-                          self.app_sender, self.place, self.gps, self.tag_with,
-                          self.is_public, self.word_count, self.character_length,
+                          self.app_sender, self.location, self.tag_with, self.feeling_status,
+                          self.share_public, 
+                          self.share_only_friend,
+                          self.word_count, self.character_length,
                           self.question_mark, self.exclamation_mark, self.day_pass)
     
 class Test(object):
