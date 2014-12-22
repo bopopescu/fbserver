@@ -16,7 +16,10 @@ def j1fbfilterel():
                 images=request.args.get('images'),
                 vdo=request.args.get('vdo'),
                 share_public=request.args.get('is_public'))
+    fbPost.share_with_location = request.args.get('location')
+    fbPost.share_with_non_location = request.args.get('non_location')
     fbPost.share_only_friend = request.args.get('share_only_friend')
+    fbPost.tag_with = request.args.get('tag_with')
     fbPost.app_sender = request.args.get('app_sender')
     fbPost.feeling_status = request.args.get('feeling_status')
     message = request.args.get('message','')

@@ -17,9 +17,10 @@ class FBPost(object):
     
 #     only facebook feature
     app_sender = 0 #socialcam, twitter, instagam
-    location = 0
-    tag_with = 0
-    feeling_status = 0
+    share_with_location = 0 #ok
+    share_with_non_location = 0 #ok
+    tag_with = 0 #ok
+    feeling_status = 0 #ok
     share_public = 0 #ok
     share_only_friend = 0 #ok
     
@@ -33,7 +34,7 @@ class FBPost(object):
     
     def __init__(self, likes=None, shares=None, comments=None, url=None, 
                  hashtags=None, images=None, vdo=None, wot_score=None, not_wot_score=None,
-                 word_outside_dict=None, app_sender=None, location=None,
+                 word_outside_dict=None, app_sender=None, share_with_location=None,
                  tag_with=None, feeling_status=None, share_public=None,
                  share_only_friend=None,word_count=None, character_length=None, 
                  question_mark=None, exclamation_mark=None, day_pass=None):
@@ -48,7 +49,7 @@ class FBPost(object):
         self.not_wot_score = not_wot_score
         self.word_outside_dict = word_outside_dict
         self.app_sender = app_sender
-        self.location = location
+        self.share_with_location = share_with_location
         self.tag_with = tag_with
         self.feeling_status = feeling_status
         self.share_public = share_public
@@ -69,7 +70,8 @@ class FBPost(object):
     def __str__(self, *args, **kwargs):
         str = '''[likes={}, shares={}, comments={}, url={}, hashtag={}, images={}, vdo={}
         , wot_score={}, not_wot_score={}, word_outside_dict={}, app_sender={}, location={},
-        tag_with={}, feeling_status={}, share_public={}, share_with_friend={}, word_count={}, character_length={},
+        non_location={},tag_with={}, feeling_status={}, share_public={}, 
+        share_with_friend={}, tag_with={}, word_count={}, character_length={},
         question_mark={}, exclamation_mark={}, day_pass={}]'''
         return str.format(self.likes, 
                           self.shares,
@@ -79,18 +81,14 @@ class FBPost(object):
                           self.images,
                           self.vdo,
                           self.wot_score, self.not_wot_score, self.word_outside_dict,
-                          self.app_sender, self.location, self.tag_with, self.feeling_status,
+                          self.app_sender, self.share_with_location,
+                          self.share_with_non_location,
+                          self.tag_with, self.feeling_status,
                           self.share_public, 
                           self.share_only_friend,
+                          self.tag_with,
                           self.word_count, self.character_length,
                           self.question_mark, self.exclamation_mark, self.day_pass)
-    
-class Test(object):
-    data1 = 0
-    data2 = 1
-    
-    def __str__(self, *args, **kwargs):
-        return "[data1={},data2={}]".format(self.data1, self.data2)
 
 class ProcessData(object):
     
@@ -113,9 +111,6 @@ class ProcessData(object):
         word_list, char_lst = crf.crfpp(self.message)
         quest_mark, exclamation_mark = self.pross_char(self.message.encode('utf-8'))
         return len(word_list), len(char_lst), quest_mark, exclamation_mark
-# test = Test()
-# test.data1 = 10
-# test.data2 = 30
-# print test.data  
+
    
     
