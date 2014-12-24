@@ -11,9 +11,9 @@ class StringUtil:
 class FileUtil:
 
     def n_write_file(self, file_name, message):
-        print msg
+        print message
         f = open(file_name,'a+b')
-        f.write(msg+'\n')
+        f.write(message+'\n')
         f.close()
         
     def write_file(self, file_name, message):
@@ -31,7 +31,13 @@ class FileUtil:
          
     def write_newfile(self, file_name, message):
            self.template_write_file(file_name, message, 'w')
-           
+    
+    def read_noencode(self, filename):
+        f = open(filename)
+        lines = f.readlines()
+        f.close()
+        return lines
+     
     def read_file(self, file_name):
         with codecs.open(file_name, 'r', 'utf-8') as file:
             return file.readlines()

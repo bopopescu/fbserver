@@ -158,15 +158,37 @@ class Database:
 		self.cursor.close()
 		return ret
 	
-	def insert_training_data(self, fbPost):
-		sql = """insert into training_data 
-		(likes, shares, comments, url, hashtags, images, vdo, create_date)
-		values (%s, %s, %s, %s, %s, %s, %s, now())"""
-		
+	def insert_training_data(self, dict):
+		self.template_persist(dict, 'training_data')
+# 		sql = """insert into training_data 
+# 		(likes, shares, comments, url, hashtags, images, vdo, create_date)
+# 		values (%s, %s, %s, %s, %s, %s, %s, now())"""
+# 		
+# 		try:
+# 			self.cursor = self.cn.cursor()
+# 			self.cursor.execute(sql, (fbPost.likes, fbPost.shares, fbPost.comments, fbPost.url,
+# 									 fbPost.hashtag, fbPost.images, fbPost.vdo))
+# 			print sql
+# 			self.cn.commit()
+# 			self.cursor.close()			
+# 		except Exception, e:
+# 			print e
+	
+	def template_persist(self, dict, table_name):
+		print dict
+		sql_file = ""
+		sql_value = ""
+		t_value = []
+		for k, v in dict.items():
+			sql_file += k+","
+			sql_value += "%s,"
+			t_value.append(v)
+		sql_file = sql_file[:-1]
+		sql_value = sql_value[:-1]
+		sql = "insert into "+table_name+"("+sql_file+") values ("+sql_value+")"
 		try:
 			self.cursor = self.cn.cursor()
-			self.cursor.execute(sql, (fbPost.likes, fbPost.shares, fbPost.comments, fbPost.url,
-									 fbPost.hashtag, fbPost.images, fbPost.vdo))
+			self.cursor.execute(sql, t_value)
 			print sql
 			self.cn.commit()
 			self.cursor.close()			
