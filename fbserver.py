@@ -4,8 +4,14 @@ from data import *
 from initial import FBInit
 from database import *
 import json
+from flask.templating import render_template
 
 app = Flask(__name__)
+
+@app.route("/", methods=['POST', 'GET'])
+def landingpage():
+    print 'test'
+    return render_template('index.html')
 
 @app.route('/j1fbfilterel', methods=['POST', 'GET'])
 def j1fbfilterel():
@@ -47,5 +53,5 @@ def server_init():
     
 if __name__ == "__main__":
     server_init()
-#     app.run(host='0.0.0.0', port=8080, ssl_context=context)
-    app.run(host='127.0.0.1', port=9090)
+    app.run(host='0.0.0.0', port=80)
+#     app.run(host='127.0.0.1', port=9090)
