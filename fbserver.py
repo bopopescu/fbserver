@@ -1,17 +1,52 @@
-from flask import Flask, Response
-from flask import request
+from flask import Flask, Response, jsonify, request
 from data import *
 from initial import FBInit
 from database import *
 import json
 from flask.templating import render_template
 
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
 app = Flask(__name__)
 
 @app.route("/", methods=['POST', 'GET'])
 def landingpage():
-    print 'test'
     return render_template('index.html')
+
+@app.route('/PyAI', methods=['POST','GET'])
+def pyAI():
+    return render_template('pyai.html')
+
+
+@app.route('/fbcred', methods=['POST','GET'])
+def fbcredibility():
+    print 'start fb cred'
+    from fbcredibility import FBCredibility
+    try:
+        fbCredibility = FBCredibility(request)
+        map_result = fbCredibility.get_credibility()
+        print 'map result ', map_result
+        return Response(json.dumps(map_result),  mimetype='application/json')
+    except Exception as e:
+        print e
+
+@app.route('/fbcredfeedback', methods=['POST','GET'])
+def fbcred_feedback():
+    print 'start fb feed back'
+    from fbcredibility import FBCredibility
+    fbCred = FBCredibility(request)
+    map_result = fbCred.get_feedback()
+    return Response(json.dumps(map_result),  mimetype='application/json')
+
+@app.route('/fbcredel', methods=['POST','GET'])
+def fbcred_el():
+    print 'start fb cred el'
+    from fbcredibility import FBCredibilityEL
+    fbCred = FBCredibilityEL(request)
+    map_result = fbCred.evaluator_credibility()
+    return Response(json.dumps(map_result),  mimetype='application/json')
 
 @app.route('/j1fbfilterel', methods=['POST', 'GET'])
 def j1fbfilterel():
@@ -52,6 +87,6 @@ def server_init():
     FBInit()
     
 if __name__ == "__main__":
-    server_init()
-    app.run(host='0.0.0.0', port=80)
-#     app.run(host='127.0.0.1', port=9090)
+    # server_init()
+#    app.run(host='0.0.0.0', port=80)
+    app.run(host='127.0.0.1', port=9090)

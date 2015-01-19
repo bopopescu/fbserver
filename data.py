@@ -13,7 +13,6 @@ class FBPost(object):
     
 #     common feature
     url = 0 #ok
-    wot_score = 0
     word_in_dict = 0 #ok
     word_outside_dict = 0 #ok
     num_of_number_in_sentense = 0 #ok
@@ -32,7 +31,7 @@ class FBPost(object):
     character_length = 0 #ok
     question_mark = 0 #ok
     exclamation_mark = 0 #ok
-    day_pass = 0
+#     day_pass = 0
     
 # other data
     message = ''
@@ -43,7 +42,7 @@ class FBPost(object):
                  word_outside_dict=None, app_sender=None, share_with_location=None,
                  tag_with=None, feeling_status=None, share_public=None,
                  share_only_friend=None,word_count=None, character_length=None, 
-                 question_mark=None, exclamation_mark=None, day_pass=None):
+                 question_mark=None, exclamation_mark=None):
         self.likes = likes
         self.shares = shares
         self.comments = comments
@@ -51,7 +50,6 @@ class FBPost(object):
         self.hashtags = hashtags
         self.images = images
         self.vdo = vdo
-        self.wot_score = wot_score
         self.word_outside_dict = word_outside_dict
         self.app_sender = app_sender
         self.share_with_location = share_with_location
@@ -62,8 +60,7 @@ class FBPost(object):
         self.word_count = word_count
         self.character_length = character_length
         self.question_mark = question_mark
-        self.exclamation_mark = exclamation_mark
-        self.day_pass = day_pass        
+        self.exclamation_mark = exclamation_mark   
         
 #     @property
 #     def likes(self):
@@ -74,61 +71,12 @@ class FBPost(object):
     
     def __str__(self, *args, **kwargs):
         return json.dumps(self.to_dict(), indent=4, separators=(',', ': '))
-        
-#         str = '''[likes={}, shares={}, comments={}, url={}, hashtag={}, images={}, vdo={}
-#         , wot_score={}, word_in_dict={}, word_outside_dict={}, app_sender={}, location={},
-#         non_location={},feeling_status={}, share_public={}, 
-#         share_with_friend={}, tag_with={}, word_count={}, character_length={},
-#         question_mark={}, exclamation_mark={}, day_pass={}, digit_in_sen={}]'''
-#         return str.format(self.likes, 
-#                           self.shares,
-#                           self.comments,
-#                           self.url,
-#                           self.hashtags,
-#                           self.images,
-#                           self.vdo,
-#                           self.wot_score, 
-#                           self.word_in_dict,
-#                           self.word_outside_dict,
-#                           self.app_sender, self.share_with_location,
-#                           self.share_with_non_location,
-#                           self.feeling_status,
-#                           self.share_public, 
-#                           self.share_only_friend,
-#                           self.tag_with,
-#                           self.word_count, self.character_length,
-#                           self.question_mark, self.exclamation_mark, self.day_pass,
-#                           self.num_of_number_in_sentense)
     
     def to_dict(self):
         d = {}
         for k, v in [(x, getattr(self, x)) for x in dir(self) if not x.startswith('_')]:
             if not hasattr(v, '__call__'): d[k] = v # skip methods
         return d
-#         str = '''[likes={}, shares={}, comments={}, url={}, hashtag={}, images={}, vdo={}
-#         , wot_score={}, word_in_dict={}, word_outside_dict={}, app_sender={}, location={},
-#         non_location={},feeling_status={}, share_public={}, 
-#         share_with_friend={}, tag_with={}, word_count={}, character_length={},
-#         question_mark={}, exclamation_mark={}, day_pass={}, digit_in_sen={}]'''
-#         return str.format(self.likes, 
-#                           self.shares,
-#                           self.comments,
-#                           self.url,
-#                           self.hashtags,
-#                           self.images,
-#                           self.vdo,
-#                           self.wot_score, 
-#                           self.word_in_dict,
-#                           self.word_outside_dict,
-#                           self.app_sender, self.share_with_location,
-#                           self.share_with_non_location,
-#                           self.feeling_status,
-#                           self.share_public, 
-#                           self.share_only_friend,
-#                           self.tag_with,
-#                           self.word_count, self.character_length,
-#                           self.question_mark, self.exclamation_mark, self.day_pass,
-#                           self.num_of_number_in_sentense)
 
 class ProcessData(object):
     
@@ -155,7 +103,7 @@ class ProcessData(object):
     def process(self, fbPost):
         print self.message.encode('utf-8')
         crf = CRFWordSegment()
-        print 'message lenght ', len(self.message.encode('utf-8'))
+#         print 'message lenght ', len(self.message.encode('utf-8'))
         if len(self.message.encode('utf-8')) == 0:
             fbPost.word_count = 0
             fbPost.character_length = 0
@@ -167,15 +115,14 @@ class ProcessData(object):
             return
         process_msg = self.pre_process(self.message)
         word_list, char_lst = crf.crfpp(process_msg)
-        print 'word list ', word_list
-        print 'char list ', char_lst
+#         print 'word list ', word_list
+#         print 'char list ', char_lst
         quest_mark, exclamation_mark , digit_in_sen = self.pross_char(char_lst)
         w_count = 0
+        word_list = [w for w in word_list if w.encode('utf-8') != ' ']        
         for w in word_list:
             w = w.encode('utf-8')
-            if w in FBInit().th_dict:
-                w_count += 1
-            if w in FBInit().en_dict:
+            if w in FBInit().dict:
                 w_count += 1
         fbPost.word_count = len(word_list)
         fbPost.character_length = len(char_lst)

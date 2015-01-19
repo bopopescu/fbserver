@@ -160,22 +160,8 @@ class Database:
 	
 	def insert_training_data(self, dict):
 		self.template_persist(dict, 'training_data')
-# 		sql = """insert into training_data 
-# 		(likes, shares, comments, url, hashtags, images, vdo, create_date)
-# 		values (%s, %s, %s, %s, %s, %s, %s, now())"""
-# 		
-# 		try:
-# 			self.cursor = self.cn.cursor()
-# 			self.cursor.execute(sql, (fbPost.likes, fbPost.shares, fbPost.comments, fbPost.url,
-# 									 fbPost.hashtag, fbPost.images, fbPost.vdo))
-# 			print sql
-# 			self.cn.commit()
-# 			self.cursor.close()			
-# 		except Exception, e:
-# 			print e
 	
 	def template_persist(self, dict, table_name):
-		print dict
 		sql_file = ""
 		sql_value = ""
 		t_value = []
@@ -189,7 +175,7 @@ class Database:
 		try:
 			self.cursor = self.cn.cursor()
 			self.cursor.execute(sql, t_value)
-			print sql
+# 			print sql
 			self.cn.commit()
 			self.cursor.close()			
 		except Exception, e:

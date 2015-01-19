@@ -448,3 +448,8 @@ h6 a:hover {
 	font-size:13px;
 	font-weight:bold;
 }
+
+.class_menu {
+	color: orange;
+	text-decoration: none;
+}
