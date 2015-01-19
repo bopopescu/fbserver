@@ -68,6 +68,7 @@ def j1fbfilterel():
         fbPost.tag_with = request.args.get('tag_with')
         fbPost.app_sender = request.args.get('app_sender')
         fbPost.feeling_status = request.args.get('feeling_status')
+        fbPost.user_evaluator = request.args.get('user_evaluator')
         message = request.args.get('message','')
         fbPost.message = message
         processData = ProcessData(message)

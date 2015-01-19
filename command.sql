@@ -10,7 +10,7 @@ comments int, hashtags int, images int, vdo int, url int, word_in_dict int,
 word_outside_dict int, num_of_number_in_sentense int, app_sender int, share_with_location int, share_with_non_location int, tag_with int, 
 feeling_status int, share_public int, share_only_friend int, 
 word_count int, character_length int, question_mark int, exclamation_mark int,
-create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, message text,
+create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, message text, user_evaluator varchar(1000),
 primary key(id));
 
         lst.append(likes)

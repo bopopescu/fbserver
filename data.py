@@ -32,6 +32,7 @@ class FBPost(object):
     question_mark = 0 #ok
     exclamation_mark = 0 #ok
 #     day_pass = 0
+    user_evaluator = ''
     
 # other data
     message = ''
