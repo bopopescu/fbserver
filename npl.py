@@ -1,6 +1,9 @@
 from crf import CRF
 from utilfile import FileUtil
+from config import Config
 import os
+
+model_path = Config.base_dir+'model1'
 
 class CRFWordSegment(object):
     
@@ -26,7 +29,7 @@ class CRFWordSegment(object):
         crf = CRF()
         fileUtil = FileUtil()
         crf.create_file_input(msg)
-        os.system('crf_test -m model1 crf.test.data > crf.result')
+        os.system('crf_test -m '+model_path+' crf.test.data > crf.result')
 
         lst = fileUtil.read_file('crf.result')
         char_lst = [a.split('\t')[0] for a in lst]

@@ -5,9 +5,9 @@ from database import *
 import json
 from flask.templating import render_template
 
-import logging
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
+# import logging
+# log = logging.getLogger('werkzeug')
+# log.setLevel(logging.ERROR)
 
 app = Flask(__name__)
 
@@ -19,6 +19,9 @@ def landingpage():
 def pyAI():
     return render_template('pyai.html')
 
+@app.route('/android', methods=['POST','GET'])
+def android():
+    return render_template('android.html')
 
 @app.route('/fbcred', methods=['POST','GET'])
 def fbcredibility():
@@ -83,11 +86,33 @@ def j1fbfilterel():
     map_result['return_id'] = return_id
     return Response(json.dumps(map_result),  mimetype='application/json')    
 
+# cloudkey
+@app.route('/cloudobject/<user_name>/<operation>/<object_name>',methods=['POST','GET'])
+def cloudkey(user_name, operation, object_name):
+    from cloudkey.cloudkey import CloudKey, CloudUser
+    from bson import json_util
+    from bson.objectid import ObjectId
+    key = '{}_{}'.format(user_name, object_name)
+    user = CloudUser()
+    map_result = {}
+    if user.check_user(user_name):
+        if operation == 'find':
+            cloud_key = CloudKey()
+            map_result = cloud_key.find(key)       
+        else:
+            data = dict(((k, v) for k, v in request.args.iteritems()))
+            data['user_name'] = user_name
+            cloud_key = CloudKey()
+            cloud_key.insert_key(key, data)
+    else:
+        pass
+    return Response(json.dumps(map_result, default=json_util.default),  mimetype='application/json') 
+
 def server_init():
     print 'fb server init'
     FBInit()
     
 if __name__ == "__main__":
     # server_init()
-#    app.run(host='0.0.0.0', port=80)
-    app.run(host='127.0.0.1', port=9090)
+    app.run(host='0.0.0.0', port=9090)
+#     app.run(host='127.0.0.1', port=9090)
