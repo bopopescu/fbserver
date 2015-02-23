@@ -86,27 +86,41 @@ def j1fbfilterel():
     map_result['return_id'] = return_id
     return Response(json.dumps(map_result),  mimetype='application/json')    
 
+@app.route('/cloudobject/')
+def cloudobject():
+    return render_template('cloudobject.html')
+ 
 # cloudkey
 @app.route('/cloudobject/<user_name>/<operation>/<object_name>',methods=['POST','GET'])
 def cloudkey(user_name, operation, object_name):
-    from cloudkey.cloudkey import CloudKey, CloudUser
-    from bson import json_util
-    from bson.objectid import ObjectId
-    key = '{}_{}'.format(user_name, object_name)
-    user = CloudUser()
-    map_result = {}
-    if user.check_user(user_name):
-        if operation == 'find':
-            cloud_key = CloudKey()
-            map_result = cloud_key.find(key)       
+    print 'start req'
+    try:
+        print 'operation ',operation
+        from cloudkey.cloudkey import CloudKey, CloudUser
+        from bson import json_util
+        from bson.objectid import ObjectId
+        key = '{}_{}'.format(user_name, object_name)
+        user = CloudUser()
+        map_result = {}
+        if user.check_user(user_name):
+            map_result["description"] = "ok"
+            if operation == 'find':
+                cloud_key = CloudKey()
+                result_data = cloud_key.find(key)
+                map_result["data"] = result_data     
+            else:
+                data = dict(((k, v) for k, v in request.args.iteritems()))
+                data['user_name'] = user_name
+                cloud_key = CloudKey()
+                cloud_key.insert_key(key, data)
+                map_result["description"] = "Complete insert"
+            map_result["status"] = 0
         else:
-            data = dict(((k, v) for k, v in request.args.iteritems()))
-            data['user_name'] = user_name
-            cloud_key = CloudKey()
-            cloud_key.insert_key(key, data)
-    else:
-        pass
-    return Response(json.dumps(map_result, default=json_util.default),  mimetype='application/json') 
+            map_result["status"] = 1
+            map_result["description"] = "User does not exist. Please register at"
+        return Response(json.dumps(map_result, default=json_util.default),  mimetype='application/json')
+    except Exception as e:
+        print e
 
 def server_init():
     print 'fb server init'
@@ -114,5 +128,5 @@ def server_init():
     
 if __name__ == "__main__":
     # server_init()
-    app.run(host='0.0.0.0', port=9090)
+    app.run(host='0.0.0.0', port=80)
 #     app.run(host='127.0.0.1', port=9090)

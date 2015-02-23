@@ -241,16 +241,17 @@ h6 a:hover {
 	margin-right:12px;
 }
 .box1 {
-	background:url(../images/box-bg.gif) 0 0;
+	/*background:url(../images/box-bg.gif) 0 0;*/
 	width:100%;
 	color:#fff;
 }
 .box1 .top {
-	background:url(../images/box1-top.jpg) no-repeat 0 0;
+	/*background:url(../images/box1-top.jpg) no-repeat 0 0;*/
 }
 .box1 .bottom {
-	background:url(../images/box1-bottom.jpg) no-repeat 0 100%;
+	/*background:url(../images/box1-bottom.jpg) no-repeat 0 100%;*/
 	width:100%;
+	color:black;
 }
 .box1 .inner {
 	padding:20px 30px 35px 30px;
