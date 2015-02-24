@@ -34,21 +34,31 @@
         <div class="mainContent">
 		    <div>How to use CloudObject</div>
 		    <div>
-		      CloudObject is a cloud framework. There are two operation for user include insert and find. Each operation return in JSON message.
-		    </div>
+		      CloudObject is a cloud framework. There are two operation include insert and find. Each operation will return in JSON message.
+		    </div><p/>
 		    <div>
-		      <ul>insert</ul>
-		      <ul>It is operation for inserting data. The url below is pattern of insert operation.</ul>
+		      <ul><h2>insert</h2></ul>
+		      <ul>It is operation for insertion data. The url below is pattern of insert operation.</ul>
 		      <ul>http://www.fbcredibility.com/cloudobject/{user}/insert/{object}?{param1}={param value}&{param2}={param value}</ul>
-		      <ul>Insert operation example of user test</ul>
+		      <ul>Insertion operation example of user1</ul>
 		      <ul>
-		
+		         http://www.fbcredibility.com/cloudobject/user1/insert/student?name=jack&id=5555
 		      </ul>
+		      <ul>json result</ul>
+		      <ul>{"status": 0, "description": "Complete insert"}</ul>
 		    </div>
 		    <div>
-		      <ul>find</ul>
+		      <ul><h2>find</h2></ul>
 		      <ul>It is operation for finding data which you was add in CloudObject. User can find object by calling at below example url.</ul>
 		      <ul>http://www.fbcredibility.com/cloudobject/{user}/find/{object}</ul>
+		      <ul>Finding operation example for find student object of user1</ul>
+		      <ul>
+		      	http://www.fbcredibility.com/cloudobject/user1/find/student/
+		      </ul>
+		      <ul>result</ul>
+		      <ul>
+		      {"status": 0, "data": [{"sur_name": "jack", "name": "joe"}], "description": "ok"}
+		      </ul>
 		    </div>
         </div>
         <div class="aside">
@@ -56,21 +66,38 @@
             <div class="top">
               <div class="bottom">
                 <div class="inner">
-                  <h3>Fresh News</h3>
-                  <ul class="img-list">
-                    <li> <img src="images/img1.jpg" alt="" />
-                      <h4><strong>June 30, 2010</strong><br />
-                        <a href="#">Sedut perspiciatiune</a></h4>
-                      Omnis iste natus lupim accusantium. </li>
-                    <li> <img src="images/img2.jpg" alt="" />
-                      <h4><strong>June 14, 2010</strong><br />
-                        <a href="#">Neque porro quisqest</a></h4>
-                      Consequuntur magni dolores eos qughi. </li>
-                    <li class="last"> <img src="images/img6.jpg" alt="" />
-                      <h4><strong>June 8, 2010</strong><br />
-                        <a href="#">Sedut perspiciatiune</a></h4>
-                      Omnis iste natus lupim accusantium. </li>
-                  </ul>
+                	<ul>
+                		<li>1. Share parking</li>
+                		<li>usg01</li>
+                	</ul>
+                	<ul>
+                		<li>2. Broad messageg</li>
+                		<li>usg02</li>
+                	</ul>
+                	<ul>
+                		<li>3. สบอยล์หนัง</li>
+                		<li>usg03</li>
+                	</ul>
+                	<ul>
+                		<li>4. เตะบอลกัน</li>
+                		<li>usg04</li>
+                	</ul>
+                	<ul>
+                		<li>5. แนะนำร้านตัดผม</li>
+                		<li>usg05</li>
+                	</ul>
+                	<ul>
+                		<li>6. สังคมการปลูกข้าว</li>
+                		<li>usg06</li>
+                	</ul>                	
+                	<ul>
+                		<li>7. บันทึกทางการเงิน</li>
+                		<li>usg07</li>
+                	</ul>
+                	<ul>
+                		<li>8. เล่นบาสกัน</li>
+                		<li>usg08</li>
+                	</ul>
                 </div>
               </div>
             </div>
