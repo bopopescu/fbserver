@@ -4,8 +4,6 @@ class BaseCloud(object):
     
     def __init__(self):
         self.conn = MongoClient('mongodb://ds047591.mongolab.com:47591/cloudkey')
-        self.db = self.conn['cloudkey']
-        self.db.authenticate('nsc', 'nsc123')
 #         self.collection = self.db.cloud
 
 class CloudKey(BaseCloud):

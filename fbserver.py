@@ -128,5 +128,5 @@ def server_init():
     
 if __name__ == "__main__":
     # server_init()
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=9090)
 #     app.run(host='127.0.0.1', port=9090)
